@@ -10,6 +10,21 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --breakpoint-smm: 340px;
+  --breakpoint-smx: 400px;
+  --breakpoint-sm: 480px;
+  --breakpoint-sms: 550px;
+  --breakpoint-ms: 600px;
+  --breakpoint-mn: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-mdx: 760px;
+  --breakpoint-mdd: 800px;
+  --breakpoint-xlg: 860px;
+  --breakpoint-slg: 870px;
+  --breakpoint-lg: 976px;
+  --breakpoint-lgx: 1040px;
+  --breakpoint-sl: 1280px;
+  --breakpoint-xl: 1440px;
 }
 
 @media (prefers-color-scheme: dark) {

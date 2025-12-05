@@ -1,0 +1,41 @@
+.container {
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: center;
+  background: #f2f2f2;
+  min-height: 100vh;
+}
+
+.formDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 100px;
+  margin-bottom: 40px;
+}
+
+.formDiv > label {
+  font-family: Poppins;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: start;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  align-items: center;
+  width: 320px;
+  height: auto;
+  background: #fff;
+  border-radius: 8px;
+  margin-top: 20px;
+}

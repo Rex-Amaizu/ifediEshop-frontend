@@ -1,0 +1,45 @@
+.container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: start;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.iconDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.logo {
+  width: 120px;
+  height: auto;
+}
+
+.linkDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.socialDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.socials {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px;
+  }
+}
