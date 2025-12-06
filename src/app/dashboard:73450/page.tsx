@@ -1,9 +1,8 @@
 import React from "react";
 import styles from "@/styles/AdminDashboard/Admin.module.css";
-import Box3 from "@/components/admin-dashboard/Box3";
-import Box4 from "@/components/admin-dashboard/Box4";
 import SideMenu from "@/components/admin-dashboard/SideMenu";
 import Total from "@/components/admin-dashboard/total/Total";
+import Recent from "@/components/admin-dashboard/recent/Recent";
 
 const page = () => {
   return (
@@ -13,6 +12,8 @@ const page = () => {
       </div>
       <div className={styles.box2}>
         <Total />
+        <Recent />
+        <Recent />
       </div>
     </div>
   );

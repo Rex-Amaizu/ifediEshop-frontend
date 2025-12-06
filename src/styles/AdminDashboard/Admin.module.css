@@ -10,7 +10,6 @@
     "box1 box2";
   height: 100vh;
   gap: 1em;
-  padding-right: 40px;
   justify-content: start;
   width: 100%;
   margin-top: -80px;
@@ -24,7 +23,9 @@
 }
 .box2 {
   grid-area: box2;
-  background: #fff;
+  background: #e6e6e6;
+  padding-left: 20px;
+  padding-right: 20px;
   height: 100%;
   overflow: auto;
   /* max-height: calc(100vh / 5); */
