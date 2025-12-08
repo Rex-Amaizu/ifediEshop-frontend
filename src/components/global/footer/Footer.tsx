@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import Logo from "../../../../public/logo.svg";
 import styles from "@/styles/Footer.module.css";
 import { CiTwitter } from "react-icons/ci";
 import { FaInstagram } from "react-icons/fa";
@@ -12,9 +11,11 @@ const Footer = () => {
       <div className={styles.iconDiv}>
         <Image
           className={styles.logo}
-          src={Logo}
+          src="/logo.svg"
           alt="Profile picture of Rex"
           priority // optional: preloads the image for better performance
+          width={200}
+          height={200}
         />
         <p className="text-sm font-medium text-[#999999]">
           Elegant fashion for the modern Individual

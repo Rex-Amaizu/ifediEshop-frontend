@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import Logo from "../../../../public/logo.svg";
 import Profile from "../../../../public/profile.png";
 import styles from "@/styles/Header/Header.module.css";
 import { LiaBell } from "react-icons/lia";
@@ -35,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({
       <Image
         onClick={goHome}
         className={styles.logo}
-        src={Logo}
+        src="/logo.svg"
         alt="Profile picture of Rex"
         width={200}
         height={200}

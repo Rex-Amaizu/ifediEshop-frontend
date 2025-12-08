@@ -1,0 +1,42 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr; /* box1:box2-4 width ratio */
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    "box1"
+    "box2"
+    "box3"
+    "box3"
+    "box3"
+    "box3";
+  height: 100vh;
+  gap: 1em;
+  justify-content: start;
+  width: 100%;
+  margin-top: -80px;
+  background: #e6e6e6;
+}
+
+.box1 {
+  grid-area: box1;
+  background: #e6e6e6;
+
+  height: 100%;
+}
+.box2 {
+  grid-area: box2;
+  background: #e6e6e6;
+
+  height: 100%;
+}
+
+.box3 {
+  grid-area: box3;
+  background: #e6e6e6;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 100%;
+  overflow: auto;
+  /* max-height: calc(100vh / 5); */
+  padding-top: 10px;
+}
