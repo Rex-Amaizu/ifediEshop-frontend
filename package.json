@@ -22,6 +22,7 @@
     "react-icons": "^5.5.0",
     "react-player": "^2.12.0",
     "react-redux": "^8.0.0",
+    "react-toastify": "^11.0.5",
     "react-video": "^1.5.3",
     "react-youtube": "^10.1.0"
   },
