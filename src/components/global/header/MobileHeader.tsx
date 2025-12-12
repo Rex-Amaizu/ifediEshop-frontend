@@ -36,6 +36,8 @@ const MobileHeader: React.FC<HeaderProps> = ({
   const toggleSearch = () => setOpenSearch((prev) => !prev);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
 
+  if (!mounted) return null;
+
   const goHome = () => {
     router.push("/");
   };
@@ -49,6 +51,10 @@ const MobileHeader: React.FC<HeaderProps> = ({
         userId: user._id,
       })
     );
+  };
+
+  const goToAdmin = () => {
+    router.push("/dashboard-73450");
   };
 
   return (
@@ -121,7 +127,16 @@ const MobileHeader: React.FC<HeaderProps> = ({
             className="flex flex-col gap-5"
             style={{ visibility: mounted && user ? "visible" : "hidden" }}
           >
-            {" "}
+            <a
+              className="w-[100px] h-[30px] rounded-sm flex items-center justify-center text-white bg-[#21184e] hover:bg-[#513cbf] cursor-pointer"
+              href="#"
+              onClick={goToAdmin}
+              style={{
+                display: user?.role === "admin" ? "flex" : "none",
+              }}
+            >
+              admin page
+            </a>
             <a
               className="w-[100px] h-[30px] rounded-sm flex items-center justify-center text-white bg-[#21184e] hover:bg-[#513cbf] cursor-pointer"
               type="button"

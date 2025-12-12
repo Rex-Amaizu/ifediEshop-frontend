@@ -6,7 +6,7 @@ import Items from "./Items";
 import { dummyProducts } from "@/utils/mockdata/items";
 import Footer from "../global/footer/Footer";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { fetchCategories } from "@/redux/slices/categorySlice";
+import { getAll } from "@/redux/slices/categorySlice";
 import { fetchProducts } from "@/redux/slices/productSlice";
 
 const LandingPage = () => {
@@ -24,7 +24,7 @@ const LandingPage = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchCategories());
+    dispatch(getAll());
     dispatch(fetchProducts());
   }, [dispatch]);
 

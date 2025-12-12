@@ -30,6 +30,8 @@ const Header: React.FC<HeaderProps> = ({
   const dispatch = useAppDispatch();
   const { user, token } = useAppSelector((state) => state.auth);
 
+  if (!mounted) return null;
+
   const goHome = () => {
     router.push("/");
   };
@@ -43,6 +45,10 @@ const Header: React.FC<HeaderProps> = ({
         userId: user._id,
       })
     );
+  };
+
+  const goToAdmin = () => {
+    router.push("/dashboard-73450");
   };
 
   return (
@@ -104,7 +110,16 @@ const Header: React.FC<HeaderProps> = ({
               className="flex flex-row gap-5 self-center"
               style={{ display: mounted && user ? "flex" : "none" }}
             >
-              {" "}
+              <a
+                className="w-[100px] h-[30px] rounded-sm flex items-center justify-center text-white bg-[#21184e] hover:bg-[#513cbf] cursor-pointer"
+                href="#"
+                onClick={goToAdmin}
+                style={{
+                  display: user?.role === "admin" ? "flex" : "none",
+                }}
+              >
+                admin page
+              </a>
               <a
                 className="w-[100px] h-[30px] rounded-sm flex items-center justify-center text-white bg-[#21184e] hover:bg-[#513cbf] cursor-pointer"
                 href="#"

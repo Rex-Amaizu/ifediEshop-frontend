@@ -67,7 +67,7 @@ export const logoutUser = createAsyncThunk(
     try {
       return await authApi.logout(data);
     } catch (err: any) {
-      return rejectWithValue(err.response?.data?.message || "Logout failed");
+      return rejectWithValue(err.response?.data?.error || "Logout failed");
     }
   }
 );

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import DeleteModal from "./DeleteModal";
+import DeleteModal from "../DeleteModal";
 
 interface Props {
   id: string;

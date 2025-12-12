@@ -112,10 +112,10 @@ const CreateProductModal = ({ isOpen, onClose }: ModalProps) => {
 
       const payload = formData;
 
-      const res = await fetch("/api/products", {
-        method: "POST",
-        body: formData,
-      });
+      // const res = await fetch("/api/products", {
+      //   method: "POST",
+      //   body: formData,
+      // });
 
       const data = await res.json();
       console.log("Created product:", data);

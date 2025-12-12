@@ -1,47 +1,20 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CategoryRow from "./CategoryRow";
-
-interface CategoryRow {
-  id: string;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-  creator: string;
-}
-
-const sampleData: CategoryRow[] = [
-  {
-    id: "69282e9e33c56a729c079d04",
-    name: "Shoes",
-    createdAt: "Nov 10 2025",
-    updatedAt: "Nov 10 2025",
-    creator: "Ebuka Rex Amaizu",
-  },
-  {
-    id: "69282eb033c56a729c079d07",
-    name: "Gym",
-    createdAt: "Nov 10 2025",
-    updatedAt: "Nov 10 2025",
-    creator: "Ebuka Rex Amaizu",
-  },
-  {
-    id: "69282ebf33c56a729c079d0d",
-    name: "Pants",
-    createdAt: "Nov 10 2025",
-    updatedAt: "Nov 10 2025",
-    creator: "Ebuka Rex Amaizu",
-  },
-  {
-    id: "69283601f54a5d4e44832783",
-    name: "Accessories",
-    createdAt: "Nov 10 2025",
-    updatedAt: "Nov 10 2025",
-    creator: "Ebuka Rex Amaizu",
-  },
-];
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { getAll } from "@/redux/slices/categorySlice";
+import DeleteModal from "../DeleteModal";
 
 const CategoryTable = () => {
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
+  const { data, token } = useAppSelector((state) => state.categories);
+
+  useEffect(() => {
+    if (!token) return;
+    dispatch(getAll());
+  }, [token]);
+
   return (
     <div className="w-full overflow-x-auto rounded-lg">
       <div className="min-w-max">
@@ -68,17 +41,28 @@ const CategoryTable = () => {
         </div>
 
         {/* ROWS */}
-        {sampleData.map((cat) => (
+        {data?.map((cat, index) => (
           <CategoryRow
-            key={cat.id}
-            id={cat.id}
+            key={cat._id || index}
+            catId={cat._id}
+            indexId={index}
             name={cat.name}
-            createAt={cat.createdAt}
+            createdAt={cat.createdAt}
             updatedAt={cat.updatedAt}
             creator={cat.creator}
+            onDeleteClick={() => setDeleteId(cat._id)}
           />
         ))}
       </div>
+      {deleteId && (
+        <DeleteModal
+          isOpen={!!deleteId}
+          onClose={() => setDeleteId(null)}
+          id={deleteId}
+          name={data.find((c) => c._id === deleteId)?.name || ""}
+          section="Category"
+        />
+      )}
     </div>
   );
 };
