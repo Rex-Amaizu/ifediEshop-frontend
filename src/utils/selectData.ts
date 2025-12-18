@@ -1,9 +1,5 @@
-// ===== CATEGORY OPTIONS (Already existing) =====
-export const categoriesSelect = [
-  { label: "Shoes", value: "69282e9e33c56a729c079d04" },
-  { label: "Gym", value: "69282eb033c56a729c079d07" },
-  { label: "Accessories", value: "69283601f54a5d4e44832783" },
-];
+export const mapCategoriesToSelect = (categories: any[]) =>
+  categories.map((cat) => ({ label: cat.name, value: cat._id }));
 
 // ====================================================
 // ==================== SIZE GROUPS ====================
@@ -100,6 +96,12 @@ export const shirtNumberSizes = [34, 36, 38, 40, 42, 44, 46].map((n) => ({
   value: n,
 }));
 
+export const bagSizes = [
+  { label: "Small (25 x 15 x 10 cm)", value: "S-25x15x10" },
+  { label: "Medium (30 x 20 x 15 cm)", value: "M-30x20x15" },
+  { label: "Large (40 x 30 x 20 cm)", value: "L-40x30x20" },
+];
+
 // ====================================================
 // ========== SIZE TYPE SELECT (MASTER SELECT) =========
 // ====================================================
@@ -114,6 +116,7 @@ export const sizeTypeSelect = [
   { label: "Watch Strap Sizes", value: "watchSizes" },
   { label: "Necklace Lengths", value: "necklaceSizes" },
   { label: "Shirt/Top Numbered Sizes", value: "shirtNumberSizes" },
+  { label: "Bag Sizes", value: "bagSizes" },
 ];
 
 export const colorsSelect = [
@@ -264,4 +267,28 @@ export const colorsSelect = [
   { label: "WhiteSmoke", value: "whitesmoke" },
   { label: "Yellow", value: "yellow" },
   { label: "YellowGreen", value: "yellowgreen" },
-];
+] as const;
+
+export const genderSelect = [
+  { label: "Men", value: "Men" },
+  { label: "Ladies", value: "Ladies" },
+  { label: "Kids", value: "Kids" },
+] as const;
+
+export const sizeOptionsMap = {
+  euShoesSizes,
+  usShoesSizes,
+  ukShoesSizes,
+  alphaClothingSizes,
+  trouserSizes,
+  kidsClothingSizes,
+  capSizes,
+  watchSizes,
+  necklaceSizes,
+  shirtNumberSizes,
+  bagSizes,
+} as const;
+
+export type GenderValue = (typeof genderSelect)[number]["value"];
+export type ColorValue = (typeof colorsSelect)[number]["value"];
+export type SizeTypeKey = keyof typeof sizeOptionsMap;

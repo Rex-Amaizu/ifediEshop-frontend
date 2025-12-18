@@ -31,7 +31,7 @@ const MobileHeader: React.FC<HeaderProps> = ({
   const router = useRouter();
   const mounted = useMounted();
   const dispatch = useAppDispatch();
-  const { user, token } = useAppSelector((state) => state.auth);
+  const { user, token, refreshToken } = useAppSelector((state) => state.auth);
 
   const toggleSearch = () => setOpenSearch((prev) => !prev);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
@@ -43,14 +43,8 @@ const MobileHeader: React.FC<HeaderProps> = ({
   };
 
   const logout = () => {
-    if (!user?._id || !token) return;
-
-    dispatch(
-      logoutUser({
-        token,
-        userId: user._id,
-      })
-    );
+    if (!refreshToken) return;
+    dispatch(logoutUser(refreshToken));
   };
 
   const goToAdmin = () => {

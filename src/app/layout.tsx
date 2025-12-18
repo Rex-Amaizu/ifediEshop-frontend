@@ -4,6 +4,7 @@ import "./globals.css";
 import DataContext from "@/store/DataContext";
 import App from "next/app";
 import { Providers } from "./Providers";
+import AxiosInterceptorProvider from "@/utils/axiosInterceptorProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,11 +30,13 @@ export default function RootLayout({
     <html lang="en">
       <Providers>
         <DataContext>
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased pt-20`}
-          >
-            {children}
-          </body>
+          <AxiosInterceptorProvider>
+            <body
+              className={`${geistSans.variable} ${geistMono.variable} antialiased pt-20`}
+            >
+              {children}
+            </body>
+          </AxiosInterceptorProvider>
         </DataContext>
       </Providers>
     </html>

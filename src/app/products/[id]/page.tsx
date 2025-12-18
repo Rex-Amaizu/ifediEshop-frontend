@@ -1,63 +1,73 @@
-// "use client";
-import React from "react";
-import { dummyProducts } from "@/utils/mockdata/items";
-import Image from "next/image";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
+import { useAppSelector } from "@/redux/hooks";
 import Header from "@/components/global/header/Header";
-import styles from "@/styles/Description/Description.module.css";
-import {
-  MdOutlineStarPurple500,
-  MdOutlineStarHalf,
-  MdOutlineStarOutline,
-} from "react-icons/md";
+import Footer from "@/components/global/footer/Footer";
 import Box1 from "@/components/product/Box1";
 import Box2 from "@/components/product/Box2";
 import Box4 from "@/components/product/Box4";
 import Box5 from "@/components/product/Box5";
-import Footer from "@/components/global/footer/Footer";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { fetchCategories } from "@/redux/slices/categorySlice";
-import { fetchProducts } from "@/redux/slices/productSlice";
+import styles from "@/styles/Description/Description.module.css";
+import { apiUrl } from "@/utils/constants";
+import { useAppDispatch } from "@/redux/hooks";
+import {
+  Review,
+  ProductCategory,
+  fetchProduct,
+} from "@/redux/slices/productSlice";
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-}
+const ProductPage = () => {
+  const [failure, setFailure] = useState<string>("");
+  const { id } = useParams(); // get product ID from route
+  const { token } = useAppSelector((state) => state.auth); // get token from Redux
+  const { singleProduct, loading, error } = useAppSelector(
+    (state) => state.products
+  );
 
-// generate static pages for all products
-export function generateStaticParams() {
-  return dummyProducts.map((product) => ({ id: product.id }));
-}
+  const dispatch = useAppDispatch();
 
-const ProductPage = ({ params }: PageProps) => {
-  // const dispatch = useAppDispatch();
+  const productId = Array.isArray(id) ? id[0] : id;
 
-  // const { data: categories, loading: categoriesLoading } = useAppSelector(
-  //   (s) => s.categories
-  // );
-  // const { data: products, loading: productsLoading } = useAppSelector(
-  //   (s) => s.products
-  // );
+  useEffect(() => {
+    if (!token) {
+      setFailure("No access token found. Please login.");
+      return;
+    }
 
-  // useEffect(() => {
-  //   dispatch(fetchCategories());
-  //   dispatch(fetchProducts());
-  // }, [dispatch]);
+    dispatch(fetchProduct(productId!))
+      .unwrap()
+      .catch((err: string) => setFailure(err));
+  }, [id, token, dispatch]);
 
-  const product = dummyProducts.find((p) => p.id === params.id);
+  if (loading) return <p>Loading product...</p>;
+  if (failure)
+    return (
+      <div className={styles.container}>
+        <Header />
+        <p className="w-full h-14 bg-red-800 text-black flex items-center justify-center">
+          {failure}
+        </p>
+      </div>
+    );
 
-  if (!product) return <p>Product not found</p>;
-  const reviews = Array.isArray(product.reviews) ? product.reviews : [];
+  if (!singleProduct) return <p>Product not found</p>;
+
+  const reviews: Review[] = Array.isArray(singleProduct.reviews)
+    ? singleProduct.reviews
+    : [];
 
   return (
     <div className={styles.container}>
       <Header />
+
       <div className={styles.body}>
         <div style={{ gridArea: "box1" }}>
-          <Box1 product={product} />
+          <Box1 product={singleProduct} />
         </div>
         <div style={{ gridArea: "box2" }}>
-          <Box2 product={product} />
+          <Box2 product={singleProduct} />
         </div>
         <div className="flex flex-col gap-2.5" style={{ gridArea: "box3" }}>
           <label className="font-semibold text-lg text-black">
@@ -80,6 +90,7 @@ const ProductPage = ({ params }: PageProps) => {
           ))}
         </div>
       </div>
+
       <div className="flex flex-col items-start pl-5 pr-5 mt-5 bg-[#f2f2f2] h-auto ms:h-[200px]">
         <Footer />
       </div>

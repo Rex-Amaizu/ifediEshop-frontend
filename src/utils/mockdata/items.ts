@@ -19,7 +19,7 @@ export const dummyProducts = [
       "/images/men-suits/men-suit1.jpeg",
     ],
     description:
-      "Red wool, cotton and silk-blend classic smoking suit from TOM FORD featuring a button fastening, a v-neck and a regular length",
+      "Wool, cotton and silk-blend classic smoking suit from TOM FORD featuring a button fastening, a v-neck and a regular length",
     reviews: [
       {
         userName: "Adar Gular",

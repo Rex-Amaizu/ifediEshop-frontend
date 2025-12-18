@@ -3,7 +3,6 @@ import Header from "../global/header/Header";
 import VideoSection from "./VideoSection";
 import styles from "@/styles/LandingPage/LandingPage.module.css";
 import Items from "./Items";
-import { dummyProducts } from "@/utils/mockdata/items";
 import Footer from "../global/footer/Footer";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getAll } from "@/redux/slices/categorySlice";
@@ -13,69 +12,56 @@ const LandingPage = () => {
   const dispatch = useAppDispatch();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [signUpModal, setSignUpModal] = useState<boolean>(true);
-  const [trigger, setTrigger] = useState(false);
 
-  const { data: categories, loading: categoriesLoading } = useAppSelector(
-    (s) => s.categories
-  );
-  const { data: products, loading: productsLoading } = useAppSelector(
-    (s) => s.products
-  );
+  const { data: products } = useAppSelector((s) => s.products);
 
   useEffect(() => {
-    dispatch(getAll());
+    dispatch(getAll()); // for header category list
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  console.log("products", products);
-  console.log("categories", categories);
+  // 🔍 FILTER PRODUCTS
+  const filteredProducts = products?.filter((product) => {
+    const lowerSearch = searchTerm.toLowerCase();
 
-  const filteredProducts = dummyProducts.filter((product) => {
+    // TEXT SEARCH
     const matchesSearch =
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.subCategory.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.gender.toLowerCase().includes(searchTerm.toLowerCase());
+      product.name?.toLowerCase().includes(lowerSearch) ||
+      product.subCategory?.toLowerCase().includes(lowerSearch) ||
+      product.gender?.toLowerCase().includes(lowerSearch) ||
+      product.category?.some((cat) =>
+        cat.name.toLowerCase().includes(lowerSearch)
+      );
 
+    // CATEGORY CLICK (ID MATCH)
     const matchesCategory = selectedCategory
-      ? product.gender.toLowerCase() === selectedCategory.toLowerCase() ||
-        product.category.toLowerCase() === selectedCategory.toLowerCase()
+      ? product.category?.some((cat) => cat.id === selectedCategory)
       : true;
 
     return matchesSearch && matchesCategory;
   });
 
-  const handleCategoryClick = (category: string) => {
-    setSelectedCategory((prev) => (prev === category ? null : category));
-    const el = document.getElementById("products");
+  // 🟢 CATEGORY CLICK HANDLER
+  const handleCategoryClick = (categoryId: string) => {
+    setSelectedCategory((prev) => (prev === categoryId ? null : categoryId));
   };
 
+  // 🔥 AUTO-SCROLL WHEN SEARCH OR CATEGORY CHANGES
   useEffect(() => {
-    if (!selectedCategory && searchTerm.trim() === "") return;
+    if (!searchTerm && !selectedCategory) return;
+
     const el = document.getElementById("products");
-    if (el) {
-      const headerHeight = 80;
-      const topPos =
-        el.getBoundingClientRect().top + window.scrollY - headerHeight;
+    if (!el) return;
 
-      window.scrollTo({
-        top: topPos,
-        behavior: "smooth",
-      });
-    }
+    const headerOffset = 80; // adjust if your header height changes
+    const elementPosition = el.getBoundingClientRect().top + window.scrollY;
+    const offsetPosition = elementPosition - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
   }, [searchTerm, selectedCategory]);
-
-  const openModal = () => {
-    setSignUpModal(true);
-  };
-
-  const closeModal = () => {
-    setSignUpModal(false);
-  };
-  const handleAction = () => {
-    setTrigger((prev) => !prev); // Toggle trigger state
-  };
 
   return (
     <div className={styles.container}>
@@ -85,13 +71,15 @@ const LandingPage = () => {
         selectedCategory={selectedCategory}
         handleCategoryClick={handleCategoryClick}
       />
+
       <div className={styles.body}>
         <VideoSection />
+
         <div id="products" className={styles.itemList}>
-          {filteredProducts.length > 0 ? (
+          {filteredProducts && filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <Items
-                key={product.id}
+                key={product._id}
                 descriptionImg={product.images[1]}
                 displayImg={product.images}
                 colors={product.colors}
@@ -99,7 +87,7 @@ const LandingPage = () => {
                 name={product.name}
                 price={product.price}
                 stock={product.stock}
-                id={product.id}
+                id={product._id}
               />
             ))
           ) : (
@@ -107,6 +95,7 @@ const LandingPage = () => {
           )}
         </div>
       </div>
+
       <div className={styles.footer}>
         <Footer />
       </div>

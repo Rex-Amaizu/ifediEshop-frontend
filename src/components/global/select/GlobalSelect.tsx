@@ -12,7 +12,7 @@ type Option = {
 
 type SelectProps = {
   label?: string;
-  options: Option[];
+  options: readonly Option[];
   placeholder?: string;
   borderColor?: string; // CSS color
   outlineColor?: string; // focus outline color

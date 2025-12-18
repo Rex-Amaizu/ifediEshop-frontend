@@ -3,11 +3,12 @@ import React from "react";
 import Image from "next/image";
 import styles from "@/styles/Description/Description.module.css";
 import { useRouter } from "next/navigation";
+import { ProductCategory } from "@/redux/slices/productSlice";
 
 interface Box1Props {
   product: {
     name: string;
-    category: string;
+    category: ProductCategory[];
     subCategory: string;
     images: string[];
   };
@@ -28,7 +29,7 @@ const Box1: React.FC<Box1Props> = ({ product }) => {
           Home/
         </p>
         <p className="text-sm font-medium text-[#999999] cursor-pointer">
-          {product.category}/
+          {product.category[0].name}/
         </p>
         <p className="text-sm font-semibold text-black cursor-pointer">
           {product.subCategory}

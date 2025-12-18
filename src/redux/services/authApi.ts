@@ -20,17 +20,19 @@ export const authApi = {
     return res.data;
   },
 
-  logout: async (data: { token: string; userId: string }) => {
-    const res = await axios.post(
+  logout: async (token: string) => {
+    const res = await axiosClient.post(
       `${apiUrl}auth/logout`,
-      { userId: data.userId }, // body
-      {
-        headers: {
-          Authorization: `Bearer ${data.token}`,
-        },
-      }
+      { refreshToken: token } // body
     );
 
     return res.data;
+  },
+
+  refresh: async (refreshToken: string) => {
+    const res = await axios.post(`${apiUrl}auth/refresh`, {
+      refreshToken,
+    });
+    return res.data; // { accessToken }
   },
 };
