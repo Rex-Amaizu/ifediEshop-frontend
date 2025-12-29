@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import styles from "@/styles/Header/Header.module.css";
 import { LiaBell } from "react-icons/lia";
@@ -10,6 +10,8 @@ import { useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useMounted } from "@/hooks/useMounted";
 import { logoutUser } from "@/redux/slices/authSlice";
+import { TiShoppingCart } from "react-icons/ti";
+import { fetchCart } from "@/redux/slices/cartSlice";
 
 interface HeaderProps {
   searchTerm?: string;
@@ -28,9 +30,9 @@ const Header: React.FC<HeaderProps> = ({
   const router = useRouter();
   const mounted = useMounted();
   const dispatch = useAppDispatch();
-  const { user, token, refreshToken } = useAppSelector((state) => state.auth);
 
-  if (!mounted) return null;
+  const { user, refreshToken } = useAppSelector((state) => state.auth);
+  const { data: cart, totalAmount } = useAppSelector((state) => state.cart);
 
   const goHome = () => {
     router.push("/");
@@ -44,6 +46,19 @@ const Header: React.FC<HeaderProps> = ({
   const goToAdmin = () => {
     router.push("/dashboard-73450");
   };
+
+  const goToCart = () => {
+    router.push("/cart");
+  };
+
+  useEffect(() => {
+    if (user?._id) dispatch(fetchCart());
+  }, [dispatch, user?._id]);
+
+  if (!mounted) return null;
+
+  // console.log("cart", cart);
+  // console.log("cartlength", cart?.length);
 
   return (
     <div className={styles.container}>
@@ -98,7 +113,21 @@ const Header: React.FC<HeaderProps> = ({
               style={{ display: mounted && user ? "flex" : "none" }}
             >
               <LiaBell style={{ fontSize: "20px", cursor: "pointer" }} />
-              {/* Optionally add profile avatar here */}
+              <div className="flex relative" onClick={goToCart}>
+                <TiShoppingCart
+                  style={{ fontSize: "20px", cursor: "pointer" }}
+                />
+                <div
+                  className="relative"
+                  style={{
+                    display: mounted && cart?.length > 0 ? "flex" : "none",
+                  }}
+                >
+                  <span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-xs font-semibold text-white">
+                    {cart.length > 0 ? cart.length : 0}
+                  </span>
+                </div>
+              </div>
             </div>
             <div
               className="flex flex-row gap-5 self-center"

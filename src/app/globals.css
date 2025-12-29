@@ -14,9 +14,11 @@
   --breakpoint-smm: 340px;
   --breakpoint-smx: 400px;
   --breakpoint-sm: 480px;
+  --breakpoint-smr: 500px;
   --breakpoint-sms: 550px;
   --breakpoint-ms: 600px;
   --breakpoint-mn: 640px;
+  --breakpoint-mds: 700px;
   --breakpoint-md: 768px;
   --breakpoint-mdx: 760px;
   --breakpoint-mdd: 800px;

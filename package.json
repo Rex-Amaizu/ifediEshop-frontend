@@ -24,7 +24,8 @@
     "react-redux": "^8.0.0",
     "react-toastify": "^11.0.5",
     "react-video": "^1.5.3",
-    "react-youtube": "^10.1.0"
+    "react-youtube": "^10.1.0",
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -12,6 +12,7 @@ interface UniversalButtonProps
   rounded?: string;
   loading?: boolean;
   className?: string;
+  responsiveClass?: string; // optional Tailwind classes to override default width/height
 }
 
 const UniversalButton: React.FC<UniversalButtonProps> = ({
@@ -23,25 +24,28 @@ const UniversalButton: React.FC<UniversalButtonProps> = ({
   loading = false,
   disabled,
   className = "",
+  responsiveClass = "", // optional
   style,
   ...rest
 }) => {
+  // If responsiveClass exists, do NOT apply width/height inline; allow Tailwind to handle it
+  const inlineStyles = {
+    color,
+    borderRadius: rounded,
+    ...(responsiveClass ? {} : { width, height }),
+    ...style,
+  };
+
   return (
     <button
       disabled={loading || disabled}
       className={`
-        flex items-center justify-center 
-        font-semibold duration-200 
-        disabled:opacity-50 disabled:cursor-not-allowed 
-        ${className}
+        flex items-center justify-center
+        font-semibold duration-200
+        disabled:opacity-50 disabled:cursor-not-allowed
+        ${className} ${responsiveClass}
       `}
-      style={{
-        color,
-        width,
-        height,
-        borderRadius: rounded,
-        ...style,
-      }}
+      style={inlineStyles}
       {...rest}
     >
       {loading ? "Loading..." : label}

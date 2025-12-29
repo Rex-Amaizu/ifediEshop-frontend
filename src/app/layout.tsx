@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import DataContext from "@/store/DataContext";
 import App from "next/app";
 import { Providers } from "./Providers";
 import AxiosInterceptorProvider from "@/utils/axiosInterceptorProvider";
@@ -28,17 +27,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Providers>
-        <DataContext>
-          <AxiosInterceptorProvider>
-            <body
-              className={`${geistSans.variable} ${geistMono.variable} antialiased pt-20`}
-            >
-              {children}
-            </body>
-          </AxiosInterceptorProvider>
-        </DataContext>
-      </Providers>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased pt-20`}
+      >
+        <Providers>
+          <AxiosInterceptorProvider>{children}</AxiosInterceptorProvider>
+        </Providers>
+      </body>
     </html>
   );
 }

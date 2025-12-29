@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { LiaBell } from "react-icons/lia";
 import { PiUser } from "react-icons/pi";
@@ -12,6 +12,8 @@ import { useRouter } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { useMounted } from "@/hooks/useMounted";
 import { logoutUser } from "@/redux/slices/authSlice";
+import { TiShoppingCart } from "react-icons/ti";
+import { fetchCart } from "@/redux/slices/cartSlice";
 
 interface HeaderProps {
   searchTerm?: string;
@@ -31,12 +33,12 @@ const MobileHeader: React.FC<HeaderProps> = ({
   const router = useRouter();
   const mounted = useMounted();
   const dispatch = useAppDispatch();
-  const { user, token, refreshToken } = useAppSelector((state) => state.auth);
+
+  const { user, refreshToken } = useAppSelector((state) => state.auth);
+  const { data: cart, totalAmount } = useAppSelector((state) => state.cart);
 
   const toggleSearch = () => setOpenSearch((prev) => !prev);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
-
-  if (!mounted) return null;
 
   const goHome = () => {
     router.push("/");
@@ -50,6 +52,16 @@ const MobileHeader: React.FC<HeaderProps> = ({
   const goToAdmin = () => {
     router.push("/dashboard-73450");
   };
+
+  const goToCart = () => {
+    router.push("/cart");
+  };
+
+  useEffect(() => {
+    if (user?._id) dispatch(fetchCart());
+  }, [dispatch, user?._id]);
+
+  if (!mounted) return null;
 
   return (
     <div className={styles.mobileContainer}>
@@ -77,16 +89,19 @@ const MobileHeader: React.FC<HeaderProps> = ({
           >
             <LiaBell style={{ fontSize: "20px", cursor: "pointer" }} />
 
-            {/* <PiUser style={{ fontSize: "20px", cursor: "pointer" }} />
-            <div className={styles.avatarWrapper}>
-              <Image
-                src={Profile}
-                alt="Profile picture"
-                width={40}
-                height={40}
-                className={styles.avatar}
-              />
-            </div> */}
+            <div className="flex relative" onClick={goToCart}>
+              <TiShoppingCart style={{ fontSize: "20px", cursor: "pointer" }} />
+              <div
+                className="relative"
+                style={{
+                  display: mounted && cart?.length > 0 ? "flex" : "none",
+                }}
+              >
+                <span className="absolute -top-2 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-red-600 text-xs font-semibold text-white">
+                  {cart.length > 0 ? cart.length : 0}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       )}

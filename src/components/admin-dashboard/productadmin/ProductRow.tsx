@@ -55,8 +55,6 @@ const ProductRow = ({
         method: "DELETE",
       });
 
-      // // You can either refresh list, or lift state up
-      // console.log("Deleted:", id);
       toggleModal();
     } catch (error) {
       console.error("Delete error:", error);
