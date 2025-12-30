@@ -12,7 +12,7 @@ interface ModalProps {
   name: string;
   onDelete?: (product: string) => void;
   section: string;
-  onSuccess: () => void;
+  onSuccess?: () => void;
 }
 
 const DeleteModal = ({
@@ -49,7 +49,10 @@ const DeleteModal = ({
     try {
       const res = await dispatch(deleteProduct(id)).unwrap();
       setSuccess(res.message);
-      onSuccess();
+      if (onSuccess) {
+        onSuccess();
+      }
+
       setTimeout(() => {
         setSuccess("");
         onClose();
