@@ -12,8 +12,8 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.11.2",
     "@tanstack/react-table": "^8.9.0",
-    "@vidstack/player": "^1.6.5",
-    "@vidstack/player-react": "^1.6.0",
+    "@vidstack/player": "1.6.5",
+    "@vidstack/player-react": "1.6.5",
     "axios": "^1.13.2",
     "json2csv": "^5.0.7",
     "next": "^15.5.9",
