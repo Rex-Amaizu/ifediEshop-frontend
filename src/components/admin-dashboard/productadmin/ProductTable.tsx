@@ -40,7 +40,7 @@ const ProductTable = () => {
     <div className="w-full overflow-x-auto rounded-lg">
       <div className="min-w-max">
         {/* HEADER */}
-        <div className="grid grid-cols-[100px_96px_64px_64px_64px_64px_200px_96px_96px] justify-between gap-2.5 bg-[#f2f2f2] py-2.5 px-3 rounded-t-lg border-b border-[#f2f2f2]">
+        <div className="grid grid-cols-[100px_96px_64px_64px_64px_64px_200px_200px_96px] justify-between gap-2.5 bg-[#f2f2f2] py-2.5 px-3 rounded-t-lg border-b border-[#f2f2f2]">
           <h1 className="font-semibold text-xs whitespace-nowrap w-28">
             Product
           </h1>

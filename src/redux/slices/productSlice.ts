@@ -119,6 +119,22 @@ export const updateProduct = createAsyncThunk(
   }
 );
 
+export const deductStock = createAsyncThunk(
+  "products/deductStock",
+  async (
+    { id, quantity }: { id: string; quantity: number },
+    { rejectWithValue }
+  ) => {
+    try {
+      return await productApi.deductStock(id, quantity);
+    } catch (err: any) {
+      return rejectWithValue(
+        err.response?.data?.message || "Failed to deduct stock"
+      );
+    }
+  }
+);
+
 export const deleteProduct = createAsyncThunk(
   "products/deleteById",
   async (id: string, { rejectWithValue }) => {
@@ -219,6 +235,31 @@ const productSlice = createSlice({
         }
       })
       .addCase(updateProduct.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      });
+
+    // DEDUCT STOCK
+    builder
+      .addCase(deductStock.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deductStock.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = action.payload.message;
+
+        const updatedProduct = action.payload.data;
+
+        const index = state.data.findIndex(
+          (product) => product._id === updatedProduct._id
+        );
+
+        if (index !== -1) {
+          state.data[index] = updatedProduct;
+        }
+      })
+      .addCase(deductStock.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
       });

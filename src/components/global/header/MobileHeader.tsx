@@ -36,6 +36,7 @@ const MobileHeader: React.FC<HeaderProps> = ({
 
   const { user, refreshToken } = useAppSelector((state) => state.auth);
   const { data: cart, totalAmount } = useAppSelector((state) => state.cart);
+  const { data: categories } = useAppSelector((s) => s.categories);
 
   const toggleSearch = () => setOpenSearch((prev) => !prev);
   const toggleMenu = () => setMenuOpen((prev) => !prev);
@@ -119,16 +120,16 @@ const MobileHeader: React.FC<HeaderProps> = ({
           />
         </div>
         <ul className={styles.sideMenuList}>
-          {["Men", "Ladies", "Kids", "Accessories"].map((cat) => (
+          {categories?.map((cat) => (
             <li
-              key={cat}
-              onClick={() => handleCategoryClick?.(cat)}
+              key={cat._id}
+              onClick={() => handleCategoryClick?.(cat._id)}
               style={{
                 cursor: "pointer",
-                color: selectedCategory === cat ? "#513cbf" : "inherit",
+                color: selectedCategory === cat._id ? "#513cbf" : "inherit",
               }}
             >
-              {cat}
+              {cat.name}
             </li>
           ))}
 

@@ -4,6 +4,7 @@ import Image from "next/image";
 import styles from "@/styles/cart/Cart.module.css";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { removeFromCart, updateCart } from "@/redux/slices/cartSlice";
+import { formatPrice } from "@/utils/formatPrice";
 
 interface CartProps {
   product: {
@@ -123,7 +124,7 @@ const MobileCartItem = ({
           </div>
           <div className="flex items-center h-full">
             <h5 className="text-xs text-[#513cbf] font-normal">
-              ${Number(product.price) * Number(localQuantity)}
+              {formatPrice(Number(product.price) * Number(localQuantity))}
             </h5>
           </div>
         </div>

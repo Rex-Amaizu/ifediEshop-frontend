@@ -62,6 +62,13 @@ export const productApi = {
     return res.data;
   },
 
+  deductStock: async (id: string, quantity: number) => {
+    const res = await axiosClient.put(`product/${id}/deduct-stock`, {
+      quantity,
+    });
+    return res.data;
+  },
+
   deleteProduct: async (id: string) => {
     const res = await axiosClient.delete(`product/${id}`);
     return res.data; // array of products

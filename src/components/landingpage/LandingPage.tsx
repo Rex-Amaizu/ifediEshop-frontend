@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "../global/header/Header";
-import VideoSection from "./VideoSection";
+import RandomImageAnimation from "./RandomImageAnimation";
 import styles from "@/styles/LandingPage/LandingPage.module.css";
 import Items from "./Items";
 import Footer from "../global/footer/Footer";
@@ -73,7 +73,7 @@ const LandingPage = () => {
       />
 
       <div className={styles.body}>
-        <VideoSection />
+        <RandomImageAnimation />
 
         <div id="products" className={styles.itemList}>
           {filteredProducts && filteredProducts.length > 0 ? (
@@ -91,7 +91,7 @@ const LandingPage = () => {
               />
             ))
           ) : (
-            <p>No products found.</p>
+            <p>Loading...</p>
           )}
         </div>
       </div>

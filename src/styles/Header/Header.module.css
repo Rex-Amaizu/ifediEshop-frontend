@@ -24,14 +24,17 @@
 .menuDiv {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: 20px;
-  width: auto;
+  max-width: 100%;
+  min-width: 200px;
   align-self: center;
+  margin-left: 10px;
 }
 
 .menuDiv > label {
   font-family: Poppins;
-  font-size: 18px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: color 0.3s ease;

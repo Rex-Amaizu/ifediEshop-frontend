@@ -10,6 +10,7 @@ import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { clearCart, fetchCart } from "@/redux/slices/cartSlice";
 import MobileCartItem from "@/components/cart/MobileCartItem";
 import { useMedia } from "@/hooks/useResponsive";
+import { formatPrice } from "@/utils/formatPrice";
 
 const page = () => {
   const [success, setSuccess] = useState<string>("");
@@ -143,7 +144,7 @@ const page = () => {
                     Subtotal:
                   </h3>
                   <p className="text-xs text-black font-normal">
-                    ${totalAmount}
+                    {formatPrice(totalAmount)}
                   </p>
                 </div>
                 <h4 className="text-xs text-[#808080] font-normal">

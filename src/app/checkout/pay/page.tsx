@@ -7,6 +7,7 @@ import styles from "@/styles/checkout/Checkout.module.css";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import UniversalButton from "@/components/global/button/UniversalButton";
 import { initializePayment } from "@/redux/slices/paymentSlice";
+import { formatPrice } from "@/utils/formatPrice";
 
 const page = () => {
   const params = useSearchParams();
@@ -50,9 +51,9 @@ const page = () => {
               className="flex flex-col w-4/5 h-auto bg-white rounded-sm"
             >
               <div className="flex flex-row gap-2.5 justify-between w-full p-5">
-                <label className="w-32 text-lg">{c.product.name}</label>
-                <h5 className="w-16 text-lg">
-                  ${Number(c.product.price) * Number(c.quantity)}
+                <label className="w-32 text-sm">{c.product.name}</label>
+                <h5 className="w-32 text-sm">
+                  {formatPrice(Number(c.product.price) * Number(c.quantity))}
                 </h5>
               </div>
               <hr className="border w-full text-[#f2f2f2]" />
@@ -60,9 +61,9 @@ const page = () => {
           ))}
           <div className="flex flex-col w-4/5 h-auto bg-white rounded-sm">
             <div className="flex flex-row gap-2.5 justify-between w-full p-5">
-              <label className="w-32 text-black text-lg font-bold">Total</label>
-              <h5 className="w-16 text-black text-lg font-bold">
-                ${totalAmount}
+              <label className="w-32 text-black text-sm font-bold">Total</label>
+              <h5 className="w-32 text-black text-sm font-bold">
+                {formatPrice(totalAmount)}
               </h5>
             </div>
             <hr className="border w-full text-[#f2f2f2]" />

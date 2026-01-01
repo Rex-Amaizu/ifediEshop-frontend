@@ -33,6 +33,7 @@ const Header: React.FC<HeaderProps> = ({
 
   const { user, refreshToken } = useAppSelector((state) => state.auth);
   const { data: cart, totalAmount } = useAppSelector((state) => state.cart);
+  const { data: categories } = useAppSelector((s) => s.categories);
 
   const goHome = () => {
     router.push("/");
@@ -82,16 +83,16 @@ const Header: React.FC<HeaderProps> = ({
       ) : (
         <>
           <div className={styles.menuDiv}>
-            {["Men", "Ladies", "Kids", "Accessories"].map((cat) => (
+            {categories?.map((cat) => (
               <label
-                key={cat}
-                onClick={() => handleCategoryClick?.(cat)}
+                key={cat._id}
+                onClick={() => handleCategoryClick?.(cat._id)}
                 style={{
                   cursor: "pointer",
-                  color: selectedCategory === cat ? "#513cbf" : "inherit",
+                  color: selectedCategory === cat._id ? "#513cbf" : "inherit",
                 }}
               >
-                {cat}
+                {cat.name}
               </label>
             ))}
           </div>

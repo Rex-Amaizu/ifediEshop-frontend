@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { renderStars } from "@/utils/rateCalculation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { addToCart } from "@/redux/slices/cartSlice";
+import { formatPrice } from "@/utils/formatPrice";
 
 interface Review {
   rating?: number;
@@ -68,7 +69,7 @@ const Box2: React.FC<Box2Props> = ({ product }) => {
       <div className="flex flex-col gap-2.5">
         <label className="font-bold text-2xl text-black">{product.name}</label>
         <h2 className="font-bold text-lg text-black">
-          ${product.price.toFixed(2)}
+          {formatPrice(product.price)}
         </h2>
       </div>
 

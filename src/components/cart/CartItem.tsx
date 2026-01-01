@@ -4,6 +4,7 @@ import Image from "next/image";
 import styles from "@/styles/cart/Cart.module.css";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { removeFromCart, updateCart } from "@/redux/slices/cartSlice";
+import { formatPrice } from "@/utils/formatPrice";
 
 interface CartProps {
   product: {
@@ -129,7 +130,9 @@ const CartItem = ({
           </div>
         </div>
         <div className={styles.priceDiv}>
-          <p className="text-xs text-black font-normal">${product.price}</p>
+          <p className="text-xs text-black font-normal">
+            {formatPrice(product.price)}
+          </p>
           <div className="flex flex-row gap-1 items-center justify-center">
             <button
               onClick={reduceQuantity}
@@ -164,7 +167,7 @@ const CartItem = ({
             </button>
           </div>
           <h5 className="text-xs text-[#513cbf] font-normal">
-            ${Number(product.price) * Number(localQuantity)}
+            {formatPrice(Number(product.price) * Number(localQuantity))}
           </h5>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DeleteModal from "../DeleteModal";
 import EditProductModal from "./EditProductModal";
+import { formatPrice } from "@/utils/formatPrice";
 
 interface Props {
   id: string;
@@ -61,7 +62,7 @@ const ProductRow = ({
     }
   };
   return (
-    <div className="grid grid-cols-[100px_96px_64px_64px_64px_64px_200px_96px_96px] justify-between items-center gap-2.5 py-2.5 px-3 border-b bg-white border-[#f2f2f2]">
+    <div className="grid grid-cols-[100px_96px_64px_64px_64px_64px_200px_200px_96px] justify-between items-center gap-2.5 py-2.5 px-3 border-b bg-white border-[#f2f2f2]">
       <p className="text-xs text-[#808080] whitespace-nowrap w-32">{name}</p>
       <p className="text-xs text-[#808080] whitespace-nowrap w-28">
         {category}
@@ -104,19 +105,19 @@ const ProductRow = ({
         <div className="flex flex-row gap-0.5">
           <p className="text-xs text-[#808080] whitespace-nowrap">Sold:</p>
           <p className="text-xs text-[#808080] whitespace-nowrap">
-            ${amountSold}
+            {formatPrice(amountSold)}
           </p>
         </div>
         <div className="flex flex-row gap-0.5">
           <p className="text-xs text-[#808080] whitespace-nowrap">Remaining:</p>
           <p className="text-xs text-[#808080] whitespace-nowrap">
-            ${amountRemaining}
+            {formatPrice(amountRemaining)}
           </p>
         </div>
         <div className="flex flex-row gap-0.5">
           <p className="text-xs text-[red] whitespace-nowrap">Damaged:</p>
           <p className="text-xs text-[red] whitespace-nowrap">
-            ${amountDamaged}
+            {formatPrice(amountDamaged)}
           </p>
         </div>
         <div className="flex flex-row gap-0.5">
@@ -124,7 +125,7 @@ const ProductRow = ({
             Total:
           </p>
           <p className="text-xs text-black font-semibold whitespace-nowrap">
-            ${totalAmount}
+            {formatPrice(totalAmount)}
           </p>
         </div>
       </div>

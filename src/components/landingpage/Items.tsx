@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "@/styles/LandingPage/Items.module.css";
 import { GoLock } from "react-icons/go";
 import { useRouter } from "next/navigation";
+import { formatPrice } from "@/utils/formatPrice";
 
 interface Stock {
   total: number;
@@ -38,6 +39,7 @@ const Items = ({
     if (stock.total === 0) return;
     router.push(`/products/${id}`);
   };
+
   return (
     <div className={styles.container} onClick={goToProductPage}>
       <div className={styles.imageWrapper}>
@@ -52,7 +54,7 @@ const Items = ({
 
       <div className={styles.namePrice}>
         <label>{name}</label>
-        <p>${price.toFixed(2)}</p>
+        <p>{formatPrice(price)}</p>
       </div>
       {stock.total === 0 ? (
         <button
